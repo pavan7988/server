@@ -2,7 +2,7 @@ var express = require("express");
 const cors = require("cors");
 var bodyParser = require("body-parser");
 require("dotenv").config();
-
+const { users, employees, students } = require("./usermodel");
 //use the express
 var app = express();
 const PORT = process.env.PORT;
@@ -28,10 +28,7 @@ app.use(bodyParser.json());
 app.use(
   cors({
     // Allow requests from multiple origins, including your GitHub Pages site
-    origin: [
-      "http://localhost:3000", // Your development origin
-      "https://reddylaxman.github.io/untitled/", // Your GitHub Pages site
-    ],
+    origin:"*",
     optionsSuccessStatus: 200,
     methods: ["GET", "POST", "PUT", "DELETE"], // Methods you want to allow
     allowedHeaders: ["Content-Type", "Authorization"], // Headers to allow
@@ -270,7 +267,7 @@ app.put("/updateStudent/:id", async (req, res) => {
   try {
     // Find the doctor by ID and update the fields
     const updatedStudent = await students.findByIdAndUpdate(
-      req.params.sid,
+      req.params.id,
       {
         htno,
         fullname,
